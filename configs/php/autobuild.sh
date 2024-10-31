@@ -16,9 +16,8 @@ while getopts [s]:l:p: flag; do
 done
 
 VERSION=$(grep "ARG PHP_VERSION" Dockerfile | cut -d '=' -f 2)
-REVISION=$(grep "ARG REVISION" Dockerfile | cut -d '=' -f 2)
 
-docker build -t kkorobicin/apache-php:${VERSION}_r${REVISION} -t kkorobicin/apache-php:latest .
+docker build -t konstatinkorobitsin/key-manager-php:${VERSION} -t konstatinkorobitsin/key-manager-php:latest .
 
 if [ ! -z "$LOGIN" ] && [ ! -z "$PASSWORD" ]; then
   echo 'Login in hub'
@@ -27,7 +26,7 @@ fi
 
 if [[ "${SEND}" == 'Y' ]]; then
   echo 'Send image to Hub'
-  docker push kkorobicin/apache-php:latest && docker push kkorobicin/apache-php:${VERSION}_r${REVISION}
+  docker push konstatinkorobitsin/key-manager-php:latest && docker push konstatinkorobitsin/key-manager-php:${VERSION}
 fi
 
 if [ ! -z "$LOGIN" ] && [ ! -z "$PASSWORD" ]; then

@@ -1,0 +1,27 @@
+services:
+  key_manager:
+    image: "konstatinkorobitsin/key-manager-php:8.3"
+    container_name: key_manager
+    restart: always
+    ports:
+      - 9800:80
+    links:
+      - key_manager_db
+    volumes:
+      - "./src/:/var/www/"
+      - "./configs/php/php.ini:/usr/local/etc/php/php.ini"
+
+  key_manager_db:
+    image: mariadb:11.5.2
+    container_name: key_manager_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASS}"
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - "key-manage_db:/var/lib/mysql"
+
+volumes:
+  key-manage_db:
