@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,5 +14,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ServerGroups extends Model
 {
-    //
+
+    /** Получить группы сервров по пользователям
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function getUserServerGroups()
+    {
+        return $this->hasOne(UserServerGroups::class)->ofMany('server_group_id');
+    }
+
+    /** Получить список серверов
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function getServers()
+    {
+        return $this->hasOne(Servers::class)->ofMany('server_group_id');
+    }
 }

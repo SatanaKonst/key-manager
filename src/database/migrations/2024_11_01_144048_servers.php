@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('server_group_id');
             $table->text('ssh_key');
             $table->string('name');
-            $table->text('descriptions');
+            $table->text('descriptions')->nullable();
             $table->string('login');
             $table->integer('port');
             $table->timestamps();

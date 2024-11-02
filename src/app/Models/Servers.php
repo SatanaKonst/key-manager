@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,5 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Servers extends Model
 {
-    //
+    public function getServerKeys(){
+        return $this->hasMany(ServerKeys::class,'server_id');
+    }
 }

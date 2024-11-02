@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('keys', function (Blueprint $table) {
-            $table->id();
+        Schema::table('user_groups', function (Blueprint $table){
             $table->string('name');
-            $table->boolean('active');
-            $table->dateTime('expire')->nullable();
-            $table->timestamps();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('keys');
+        Schema::table('user_groups', function (Blueprint $table){
+            $table->removeColumn('name');
+        });
     }
 };

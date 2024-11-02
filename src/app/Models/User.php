@@ -57,4 +57,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /** Получить группы пользователя
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function getUserGroups(){
+        return $this->hasOne(UserGroups::class)->ofMany('user_id');
+    }
+
+    /** Получить группы серверов пользователя
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function getServerGroups(){
+        return $this->hasOne(ServerGroups::class)->ofMany('user_id');
+    }
 }
