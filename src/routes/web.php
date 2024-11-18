@@ -1,19 +1,15 @@
 <?php
 
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Models\Servers;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
 
-Route::get('/test', function (){
-    $servers = Servers::query()->get();
-    foreach ($servers->all() as $server){
-        $keys = $server->getServerKeys()->get();
-        foreach ($keys as $key){
-           $keyValue = $key->getKey()->get();
-           dump($keyValue);
-        }
-    }
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
 });
