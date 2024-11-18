@@ -14,6 +14,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ServerGroups extends Model
 {
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
+    public static function create(array $attributes = [])
+    {
+        return self::query()->create($attributes);
+    }
 
     /** Получить группы сервров по пользователям
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

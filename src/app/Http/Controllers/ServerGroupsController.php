@@ -7,9 +7,8 @@ use App\Models\Servers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Spatie\Permission\Models\Role;
 
-class ServerController extends Controller
+class ServerGroupsController extends Controller
 {
     function __construct()
     {
@@ -24,14 +23,14 @@ class ServerController extends Controller
 
     public function index(Request $request): View
     {
-        $servers = Servers::orderBy('id', 'DESC')->paginate(5);
-        return view('servers.index', compact('servers'))
+        $serverGroups = ServerGroups::orderBy('id', 'DESC')->paginate(5);
+        return view('server.groups.index', compact('serverGroups'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function create(Request $request): View
     {
-        return \view('servers.create');
+        return \view('server.groups.create');
     }
 
     /** Создать новый сервер
@@ -39,29 +38,23 @@ class ServerController extends Controller
      * @return RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
+    /** Создать новую группу
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
-            'server_group_id' => 'required',
-            'ssh_key' => 'required',
             'name' => 'required',
-            'login' => 'required',
         ]);
 
-        $newServer = Servers::create(
-            [
-                'server_group_id' => $request->input('server_group_id'),
-                'ssh_key' => $request->input('ssh_key', null),
-                'name' => $request->input('name', 'NewServer'),
-                'descriptions' => $request->input('descriptions', null),
-                'login' => $request->input('login', null),
-                'port' => $request->input('port', 22),
-            ]
-        );
+        ServerGroups::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description', null),
+        ]);
 
         return redirect()->route('servers.index')
             ->with('success', 'Server created successfully');
     }
-
-
 }

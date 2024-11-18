@@ -30,6 +30,7 @@ class Servers extends Model
     public static function create(array $attributes = []){
         return self::query()->create($attributes);
     }
+
     public function getServerKeys(){
         return $this->hasMany(ServerKeys::class,'server_id');
     }
