@@ -49,6 +49,7 @@
                                 </li>
                             @endif
                         @else
+                            <li><a class="nav-link" href="{{ route('servers.index') }}">Сервера</a></li>
                             <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
                             <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
                             <li class="nav-item dropdown">

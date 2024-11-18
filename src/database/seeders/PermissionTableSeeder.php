@@ -29,7 +29,11 @@ class PermissionTableSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            try {
+                Permission::create(['name' => $permission]);
+            }catch (\Throwable $exception){
+
+            }
         }
     }
 }

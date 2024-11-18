@@ -18,6 +18,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Servers extends Model
 {
+    protected $fillable = [
+        'server_group_id',
+        'ssh_key',
+        'login',
+        'name',
+        'descriptions',
+        'port'
+    ];
+
+    public static function create(array $attributes = []){
+        return self::query()->create($attributes);
+    }
     public function getServerKeys(){
         return $this->hasMany(ServerKeys::class,'server_id');
     }

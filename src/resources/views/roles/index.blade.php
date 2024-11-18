@@ -50,6 +50,4 @@
     </table>
 
     {!! $roles->links('pagination::bootstrap-5') !!}
-
-    <p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
 @endsection
